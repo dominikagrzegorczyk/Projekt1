@@ -1,5 +1,6 @@
 import sys
-from math import sin, cos, sqrt, atan, atan2, degrees, radians, tan
+#from math import sin, cos, sqrt, atan, atan2, degrees, radians, tan
+from math import *
 import numpy as np
 
 o = object()
