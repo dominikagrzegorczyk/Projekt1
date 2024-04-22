@@ -7,4 +7,4 @@ c = a + b
 print(c)
 
 
-print('kod')
+print('kodnowy')
