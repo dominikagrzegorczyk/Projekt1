@@ -17,6 +17,10 @@ class Transformacje:
         + Inne powierzchnie odniesienia: https://en.wikibooks.org/wiki/PROJ.4#Spheroid
         + Parametry planet: https://nssdc.gsfc.nasa.gov/planetary/factsheet/index.html
         """
+        try:
+            model = sys.argv[1]
+        except IndexError:
+            print('Podaj nazwę modelu (wgrs84, grs80, mars)')
         if model == "wgs84":
             self.a = 6378137.0 # semimajor_axis
             self.b = 6356752.31424518 # semiminor_axis
