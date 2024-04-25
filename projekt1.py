@@ -33,48 +33,6 @@ class Transformacje:
         self.ecc2 = (2 * self.flat - self.flat ** 2) # eccentricity**2
 
 
-def xyz2flh(self, X, Y, Z, output='dec_degree'):
-    """
-    Algorytm Hirvonena - algorytm transformacji współrzędnych ortokartezjańskich (x, y, z)
-    na współrzędne geodezyjne długość szerokość i wysokośc elipsoidalna (phi, lam, h). Jest to proces iteracyjny.
-    W wyniku 3-4-krotneej iteracji wyznaczenia wsp. phi można przeliczyć współrzędne z dokładnoscią ok 1 cm.
-    Parameters
-    ----------
-    X, Y, Z : FLOAT
-         współrzędne w układzie orto-kartezjańskim,
-
-    Returns
-    -------
-    lat
-        [stopnie dziesiętne] - szerokość geodezyjna
-    lon
-        [stopnie dziesiętne] - długośc geodezyjna.
-    h : TYPE
-        [metry] - wysokość elipsoidalna
-    output [STR] - optional, defoulf
-        dec_degree - decimal degree
-        dms - degree, minutes, sec
-    """
-    r = sqrt(X ** 2 + Y ** 2)  # promień
-    lat_prev = atan(Z / (r * (1 - self.ecc2)))  # pierwsze przybliilizenie
-    lat = 0
-    while abs(lat_prev - lat) > 0.000001 / 206265:
-        lat_prev = lat
-        N = self.a / sqrt(1 - self.ecc2 * sin(lat_prev) ** 2)
-        h = r / cos(lat_prev) - N
-        lat = atan((Z / r) * (((1 - self.ecc2 * N / (N + h)) ** (-1))))
-    lon = atan(Y / X)
-    N = self.a / sqrt(1 - self.ecc2 * (sin(lat)) ** 2);
-    h = r / cos(lat) - N
-    if output == "dec_degree":
-        return degrees(lat), degrees(lon), h
-    elif output == "dms":
-        lat = self.deg2dms(degrees(lat))
-        lon = self.deg2dms(degrees(lon))
-        return f"{lat[0]:02d}:{lat[1]:02d}:{lat[2]:.2f}", f"{lon[0]:02d}:{lon[1]:02d}:{lon[2]:.2f}", f"{h:.3f}"
-    else:
-        raise NotImplementedError(f"{output} - output format not defined")
-
     def xyz2flh(self, X, Y, Z, output='dec_degree'):
         """
         Algorytm Hirvonena - algorytm transformacji współrzędnych ortokartezjańskich (x, y, z)
