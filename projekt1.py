@@ -81,4 +81,38 @@ class Transformacje:
         else:
             raise NotImplementedError(f"{output} - output format not defined")
 
+    def flh2xyz(self, lat, lon, h):
+        '''
+        Algorytm odwrotny do algorytmu hirvonena, polega na transformacji
+        współrzędnych geodezyjnych długości, szerokości i wysokości elipsoidalnej (phi, lam, h)
+        na współrzędne ortokartezjańskie (x, y, z).
 
+
+
+        Parameters
+        ----------
+        lat : float
+           [stopnie dziesiętne] - szerokosc geodezyjna.
+        lon : float
+            [stopnie dziesiętne] - Długosc geodezyjna.
+        h : float
+            [metry] - Wysokosc elipsoidalna w metrach.
+
+        Returns
+        -------
+        x : float
+            Współrzędna X w układzie orto-kartezjańskim.
+        y : float
+            Współrzędna Y w układzie orto-kartezjańskim.
+        z : float
+            Współrzędna Z w układzie orto-kartezjańskim.
+        '''
+
+        lat = radians(lat)  # fi
+        lon = radians(lon)  # lam
+        RN = self.a / sqrt(1 - self.ecc2 * sin(lat) ** 2)
+        q = RN * self.ecc2 * sin(lat)
+        x = (RN + h) * cos(lat) * cos(lon)
+        y = (RN + h) * cos(lat) * sin(lon)
+        z = (RN + h) * sin(lat) - q
+        return f"{x:.3f}", f"{y:.3f}", f"{z:.3f}"
