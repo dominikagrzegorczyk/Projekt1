@@ -1,5 +1,4 @@
 import sys
-#from math import sin, cos, sqrt, atan, atan2, degrees, radians, tan
 from math import *
 import numpy as np
 
@@ -78,3 +77,45 @@ class Transformacje:
             return f"{lat[0]:02d}:{lat[1]:02d}:{lat[2]:.2f}", f"{lon[0]:02d}:{lon[1]:02d}:{lon[2]:.2f}", f"{h:.3f}"
         else:
             raise NotImplementedError(f"{output} - output format not defined")
+
+        def xyz2neup(self, x, y, z):
+            '''
+            Transformacja współrzędnych ortokartezjańskich (x, y, z) na współrzędne topocentryczne (n,e,up)
+            w wyniku przesunięcia początku układu współrzędnych do punktu gdzie znajduję się antena odbiornika,
+            a następnie rotacji. Parametry rotacji zależne są od szerokosci (phi) oraz długosc (lam) geodezyjnej anteny.
+
+
+            Parameters
+            ----------
+
+           x : float
+               Współrzędna X w układzie orto-kartezjańskim.
+           y : float
+               Współrzędna Y w układzie orto-kartezjańskim.
+           z : float
+               Współrzędna Z w układzie orto-kartezjańskim.
+
+            Returns
+            -------
+            n : float
+                Północ (Northing) w układzie topocentrycznym
+            e : float
+                Wschód (Easting) w układzie topocentrycznym.
+            up: float
+                Góra (Up) w układzie topocentrycznym.
+
+            '''
+
+            lat, lon, h = self.xyz2flh(x, y, z)
+            lat = radians(lat)
+            lon = radians(lon)
+            R = np.array([[-np.sin(lat) * np.cos(lon), -np.sin(lon), np.cos(lat) * np.cos(lon)],
+                          [-np.sin(lat) * np.sin(lon), np.cos(lon), np.cos(lat) * np.sin(lon)],
+                          [np.cos(lat), 0, np.sin(lat)]])
+
+            dX = [x, y, z]
+            dx = R.T @ dX
+            n = dx[0]
+            e = dx[1]
+            up = dx[2]
+            return f"{n:.3f}", f"{e:.20f}", f"{up:.3f}"
