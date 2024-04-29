@@ -126,7 +126,6 @@ class Transformacje:
             Poprzez odwzorowanie czterostefowe Gaussa-Krugera w pasie 3-stopniowym przy południkach osiowych (15°, 18°, 21°, 24°)
             ponumerowanych odpowiednio: 5, 6, 7 i 8 oraz przy współczynniku skali równym 0.999923.
 
-            Parameters
             ----------
             Parameters:
            lat : float
