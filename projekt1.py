@@ -78,6 +78,41 @@ class Transformacje:
         else:
             raise NotImplementedError(f"{output} - output format not defined")
 
+    def flh2xyz(self, lat, lon, h):
+        '''
+        Algorytm odwrotny do algorytmu hirvonena, polega na transformacji
+        współrzędnych geodezyjnych długości, szerokości i wysokości elipsoidalnej (phi, lam, h)
+        na współrzędne ortokartezjańskie (x, y, z) z dokoładnoscia do 1 mm.
+
+
+        Parameters
+        ----------
+        lat : float
+           [stopnie dziesiętne] - szerokosc geodezyjna.
+        lon : float
+            [stopnie dziesiętne] - Długosc geodezyjna.
+        h : float
+            [metry] - Wysokosc elipsoidalna w metrach.
+
+        Returns
+        -------
+        x : float
+            Współrzędna X w układzie orto-kartezjańskim.
+        y : float
+            Współrzędna Y w układzie orto-kartezjańskim.
+        z : float
+            Współrzędna Z w układzie orto-kartezjańskim.
+        '''
+
+        lat = radians(lat)  # fi
+        lon = radians(lon)  # lam
+        RN = self.a / sqrt(1 - self.ecc2 * sin(lat) ** 2)
+        q = RN * self.ecc2 * sin(lat)
+        x = (RN + h) * cos(lat) * cos(lon)
+        y = (RN + h) * cos(lat) * sin(lon)
+        z = (RN + h) * sin(lat) - q
+        return f"{x:.3f}", f"{y:.3f}", f"{z:.3f}"
+
     def xyz2neup(self, x, y, z, x_0, y_0, z_0):
         '''
         Transformacja współrzędnych ortokartezjańskich (x, y, z) na współrzędne topocentryczne (n,e,up)
@@ -118,9 +153,12 @@ class Transformacje:
 
         dx = R.T @ xyz_t
         n = dx[0]
+        n = np.round(n, decimals=3)
         e = dx[1]
+        e = np.round(e, decimals=3)
         up = dx[2]
-        return f"{n:.3f}", f"{e:.20f}", f"{up:.3f}"
+        up = np.round(up, decimals=3)
+        return n,e,up
 
     def fl_do_2000(self, lat, lon):
         '''
@@ -236,3 +274,58 @@ class Transformacje:
         return f"{xgk_92:.3f}", f"{ygk_92:.3f}"
 
 
+
+if __name__ == "__main__":
+    # utworzenie obiektu
+    geo = Transformacje(model = "grs80")
+    print(sys.argv)
+    # dane XYZ geocentryczne
+    X = 3664940.500; Y = 1409153.590; Z = 5009571.170
+    phi, lam, h = geo.xyz2flh(X, Y, Z)
+    X_new, Y_new, Z_new = geo.flh2xyz(phi, lam, h)
+    x_0 = 1;y_0 = 1;z_0 = 1
+    n, e, up = geo.xyz2neup(X,Y,Z,x_0,y_0,z_0)
+    X_2000, Y_2000 = geo.fl_do_2000(phi,lam)
+    X_1992, Y_1992 = geo.fl_do_1992(phi, lam)
+
+    input_file_path = sys.argv[-1]
+    if '--header_lines' in sys.argv:
+        header_lines = int(sys.argv[3])
+
+    if '--xyz2flh' in sys.argv and '--flh2xyz' in sys.argv and '--xyz2neup' in sys.argv and '--fl_do_2000' in sys.argv and '--fl_do_1992':
+        print('mozezz podac tylko jedna flage')
+    elif '--xyz2flh' in sys.argv:
+        with open(input_file_path, 'r') as f:
+            lines = f.readlines()
+            lines = lines[header_lines:]
+            coords_flh = []
+            for line in lines:
+                line = line.strip()
+                x_str, y_str, z_str = line.split(',')
+                x, y, z = (float(x_str), float(y_str), float(z_str))
+                f, l, h = geo.xyz2flh(x, y, z)
+                coords_flh.append([f, l, h])
+
+        with open('results_xyz2flh.txt', 'w') as f:
+            f.write('     phi[deg]           lam[deg]            h[m] \n')
+            for coords in coords_flh:
+                coords_flh_line = ' '.join([str(coord) for coord in coords])
+                f.write(coords_flh_line + '\n')
+
+    elif '--flh2xyz' in sys.argv:
+        with open(input_file_path, 'r') as f:
+            lines = f.readlines()
+            lines = lines[header_lines:]
+            coords_xyz_new = []
+            for line in lines:
+                line = line.strip()
+                f_str, l_str, h_str = line.split()
+                f, l, h = (float(f_str), float(l_str), float(h_str))
+                X_new, Y_new, Z_new = geo.flh2xyz(f, l, h)
+                coords_xyz_new.append([X_new, Y_new, Z_new])
+
+            with open('results_flh2xyz.txt', 'w') as f:
+                f.write('   X[m]        Y[m]        Z[m]\n')
+                for coords in coords_xyz_new:
+                    coords_xyz_new_line = ' '.join([str(coord) for coord in coords])
+                    f.write(coords_xyz_new_line + '\n')
