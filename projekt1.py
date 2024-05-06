@@ -88,18 +88,12 @@ class Transformacje:
             Parameters
             ----------
 
-           x : float
-               Współrzędna X w układzie orto-kartezjańskim.
-           y : float
-               Współrzędna Y w układzie orto-kartezjańskim.
-           z : float
-               Współrzędna Z w układzie orto-kartezjańskim.
-            x_0 : float
-               Współrzędna X w układzie orto-kartezjańskim.
-           y_0 : float
-               Współrzędna Y w układzie orto-kartezjańskim.
-           z_0 : float
-               Współrzędna Z w układzie orto-kartezjańskim.
+           x, y, z : float
+               Współrzędne geocentryczne satelitów.
+
+            x_0, y_0, z_0 : float
+               Współrzędne geocentryczne anteny.
+
 
             Returns
             -------
