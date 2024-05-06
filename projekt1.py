@@ -78,7 +78,7 @@ class Transformacje:
         else:
             raise NotImplementedError(f"{output} - output format not defined")
 
-        def xyz2neup(self, x, y, z):
+        def xyz2neup(self, x, y, z, x_0, y_0, z_0):
             '''
             Transformacja współrzędnych ortokartezjańskich (x, y, z) na współrzędne topocentryczne (n,e,up)
             w wyniku przesunięcia początku układu współrzędnych do punktu gdzie znajduję się antena odbiornika,
@@ -93,6 +93,12 @@ class Transformacje:
            y : float
                Współrzędna Y w układzie orto-kartezjańskim.
            z : float
+               Współrzędna Z w układzie orto-kartezjańskim.
+            x_0 : float
+               Współrzędna X w układzie orto-kartezjańskim.
+           y_0 : float
+               Współrzędna Y w układzie orto-kartezjańskim.
+           z_0 : float
                Współrzędna Z w układzie orto-kartezjańskim.
 
             Returns
@@ -109,12 +115,14 @@ class Transformacje:
             lat, lon, h = self.xyz2flh(x, y, z)
             lat = radians(lat)
             lon = radians(lon)
-            R = np.array([[-np.sin(lat) * np.cos(lon), -np.sin(lon), np.cos(lat) * np.cos(lon)],
-                          [-np.sin(lat) * np.sin(lon), np.cos(lon), np.cos(lat) * np.sin(lon)],
-                          [np.cos(lat), 0, np.sin(lat)]])
+            R = np.array([[-sin(lat) * cos(lon), -sin(lon), cos(lat) * cos(lon)],
+                          [-sin(lat) * sin(lon), cos(lon), cos(lat) * sin(lon)],
+                          [cos(lat), 0, sin(lat)]])
+            xyz_t = np.array([[x - x_0],
+                             [y - y_0],
+                             [z - z_0]])
 
-            dX = [x, y, z]
-            dx = R.T @ dX
+            dx = R.T @ xyz_t
             n = dx[0]
             e = dx[1]
             up = dx[2]
