@@ -334,3 +334,23 @@ if __name__ == "__main__":
                 f.write(coords_xyz_new_line + '\n')
 
 
+    elif '--xyz2neup' in sys.argv:
+        with open(input_file_path,'r') as f:
+            lines = f.readlines()
+            lines = lines[header_lines:]
+            # coords_neup = []
+            coords_neup = []
+            for line in lines:
+                line = line.strip()
+                x_str, y_str, z_str = line.split(',')
+                x, y,z = (float(x_str), float(y_str), float(z_str))
+                x_0,y_0,z_0 = [float(coord) for coord in sys.argv[-4:-1]]
+                n,e,up = geo.xyz2neup(x,y,z,x_0,y_0,z_0)
+                coords_neup.append([n,e,up])
+
+
+        with open('results_neupxyz.txt', 'w') as f:
+            f.write('n[m]     e[m]     up[m] \n')
+            for coords in coords_neup:
+                coords_neup_line = ' '.join([str(coord) for coord in coords])
+                f.write(coords_neup_line + '\n')
