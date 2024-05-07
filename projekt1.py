@@ -373,3 +373,21 @@ if __name__ == "__main__":
             for coords in coords_xy2000:
                 coords_xy2000_line = ' '.join([str(coord) for coord in coords])
                 f.write(coords_xy2000_line + '\n')
+
+    elif '--fl_do_1992' in sys.argv:
+        with open(input_file_path, 'r') as f:
+            lines = f.readlines()
+            lines = lines[1:]
+            coords_xy1992 = []
+            for line in lines:
+                line = line.strip()
+                f_str, l_str, h_str = line.split()
+                f, l, h = (float(f_str), float(l_str), float(h_str))
+                X_1992, Y_1992 = geo.fl_do_1992(f, l)
+                coords_xy1992.append([X_1992, Y_1992])
+
+        with open('results_fl_do_1992.txt', 'w') as f:
+            f.write('   X[m]       Y[m]\n')
+            for coords in coords_xy1992:
+                coords_xy1992_line = ' '.join([str(coord) for coord in coords])
+                f.write(coords_xy1992_line + '\n')
