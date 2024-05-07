@@ -296,7 +296,7 @@ if __name__ == "__main__":
         header_lines = int(sys.argv[3])
 
     if '--xyz2flh' in sys.argv and '--flh2xyz' in sys.argv and '--xyz2neup' in sys.argv and '--fl_do_2000' in sys.argv and '--fl_do_1992':
-        print('mozezz podac tylko jedna flage')
+        print('mozesz podac tylko jedna flage')
     elif '--xyz2flh' in sys.argv:
         with open(input_file_path, 'r') as f:
             lines = f.readlines()
@@ -318,7 +318,7 @@ if __name__ == "__main__":
     elif '--flh2xyz' in sys.argv:
         with open(input_file_path, 'r') as f:
             lines = f.readlines()
-            lines = lines[1:]
+            lines = lines[header_lines:]
             coords_xyz_new = []
             for line in lines:
                 line = line.strip()
@@ -359,7 +359,7 @@ if __name__ == "__main__":
     elif '--fl_do_2000' in sys.argv:
         with open(input_file_path, 'r') as f:
             lines = f.readlines()
-            lines = lines[1:]
+            lines = lines[header_lines:]
             coords_xy2000 = []
             for line in lines:
                 line = line.strip()
@@ -377,7 +377,7 @@ if __name__ == "__main__":
     elif '--fl_do_1992' in sys.argv:
         with open(input_file_path, 'r') as f:
             lines = f.readlines()
-            lines = lines[1:]
+            lines = lines[header_lines:]
             coords_xy1992 = []
             for line in lines:
                 line = line.strip()
