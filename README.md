@@ -49,6 +49,7 @@ Przy wywoływaniu programu z flagą **--xyz2neup** konieczne jest podanie wspó�
 Plik z wynikami zostanie zapisany do folderu, z którego został wywołany program. Plik będzie zawierać jeden wiersz nagłówka oraz wartości będą rozdzielone " "(whitespace).
 
 #### Przykład (**results_xyz2flh.txt**)
+
 >phi[deg]      lam[deg]      h[m] 
 >52.09727222 21.03153333 141.399
 >52.09727216 21.03153314 141.4
@@ -68,6 +69,7 @@ W pliku z danymi początkowymi X,Y,Z współrzędne powinny być odzielone "**,*
 >wspolrzednaX,wspolrzednaY,wspolrzednaZ
 
 #### Przykład (**wsp_inp.txt**)
+
 >3664940.500,1409153.590,5009571.170
 >3664940.510,1409153.580,5009571.167
 >3664940.520,1409153.570,5009571.167
