@@ -50,7 +50,7 @@ Plik z wynikami zostanie zapisany do folderu, z którego został wywołany progr
 
 #### Przykład (**results_xyz2flh.txt**)
 
->phi[deg]      lam[deg]      h[m]
+>phi[deg]      lam[deg]      h[m]  
 >52.09727222 21.03153333 141.399  
 >52.09727216 21.03153314 141.400  
 >52.09727212 21.03153296 141.403  
