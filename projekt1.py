@@ -17,7 +17,8 @@ class Transformacje:
         + Parametry planet: https://nssdc.gsfc.nasa.gov/planetary/factsheet/index.html
         """
         try:
-            model = sys.argv[1]
+            if "--model" in sys.argv:
+                model = sys.argv[2]
         except IndexError:
             print('Podaj nazwę modelu (wgrs84, grs80, mars)')
         if model == "wgs84":
@@ -293,7 +294,7 @@ if __name__ == "__main__":
 
     input_file_path = sys.argv[-1]
     if '--header_lines' in sys.argv:
-        header_lines = int(sys.argv[3])
+        header_lines = int(sys.argv[4])
 
     if '--xyz2flh' in sys.argv and '--flh2xyz' in sys.argv and '--xyz2neup' in sys.argv and '--fl_do_2000' in sys.argv and '--fl_do_1992':
         print('mozesz podac tylko jedna flage')
