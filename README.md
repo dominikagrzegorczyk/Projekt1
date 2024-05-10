@@ -8,9 +8,9 @@ Program służy do tranformacji współrzędnych pomiędzy poniższymi układami
 - fi, lambda do układu PL-2000(fldo2000)
 - fi, lambda do układu PL-1992(fldo1992)
 
-Program obsługuje elipsoidy:
-**WGS'84**
-**GRS'80**
+Program obsługuje elipsoidy:  
+**WGS'84**  
+**GRS'80**  
 **mars**
 
 ## Wymogi techniczne
