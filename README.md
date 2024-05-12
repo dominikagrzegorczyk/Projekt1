@@ -40,7 +40,7 @@ Do poprawnego uruchomienia programu należy podać:
 ## Przykładowe wywołanie programu:
 1. Przejście do CLI z skopiowanego folderu zawierący program
 2. Wywołanie przykładowego programu 
->python projekt1.py --model grs80 --header_lines 4 --xyz2flh wsp_inp.txt 
+>python projekt1.py --model grs80 --header_lines 4 --xyz2flh file.txt 
 
 ### Uwaga
 Przy wywoływaniu programu z flagą **--xyz2neup** konieczne jest podanie współrzędnych środka układu odniesinia
