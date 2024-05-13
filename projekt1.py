@@ -178,9 +178,9 @@ class Transformacje:
         Returns
         -------
         x : float
-           [metry] - Współrzędna X w układzie związanym z systemem 2000.
+           [metry] -  Współrzędna X w układzie związanym z systemem 2000.
         y : float
-           [metry] - Współrzędna Y w układzie związanym z systemem 2000.
+           [metry] -  Współrzędna Y w układzie związanym z systemem 2000.
 
 
         '''
