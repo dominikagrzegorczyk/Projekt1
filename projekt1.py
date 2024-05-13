@@ -124,10 +124,10 @@ class Transformacje:
         ----------
 
         x, y, z : float
-        Współrzędne geocentryczne satelitów.
+        [metry] - Współrzędne geocentryczne satelitów.
 
         x_0, y_0, z_0 : float
-        Współrzędne geocentryczne anteny.
+        [metry] - Współrzędne geocentryczne anteny.
 
 
         Returns
