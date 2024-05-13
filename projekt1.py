@@ -134,11 +134,11 @@ class Transformacje:
         Returns
         -------
         n : float
-            Północ (Northing) w układzie topocentrycznym
+           [metry] - Północ (Northing) w układzie topocentrycznym
         e : float
-            Wschód (Easting) w układzie topocentrycznym.
+           [metry] - Wschód (Easting) w układzie topocentrycznym.
         up: float
-            Góra (Up) w układzie topocentrycznym.
+          [metry]  - Góra (Up) w układzie topocentrycznym.
 
         '''
 
