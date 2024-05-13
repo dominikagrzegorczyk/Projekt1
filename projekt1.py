@@ -98,11 +98,11 @@ class Transformacje:
         Returns
         -------
         x : float
-            Współrzędna X w układzie orto-kartezjańskim.
+            [metry] - Współrzędna X w układzie orto-kartezjańskim.
         y : float
-            Współrzędna Y w układzie orto-kartezjańskim.
+            [metry] - Współrzędna Y w układzie orto-kartezjańskim.
         z : float
-            Współrzędna Z w układzie orto-kartezjańskim.
+            [metry] - Współrzędna Z w układzie orto-kartezjańskim.
         '''
 
         lat = radians(lat)  # fi
