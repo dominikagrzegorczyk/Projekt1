@@ -240,11 +240,9 @@ class Transformacje:
         Returns
         -------
         x : float
-            Współrzędna X w układzie związanym z systemem 2000.
+            [metry] - Współrzędna X w układzie związanym z systemem 1992.
         y : float
-            Współrzędna Y w układzie związanym z systemem 2000.
-        z : float
-            Współrzędna Z w układzie związanym z systemem 2000.
+            [metry] - Współrzędna Y w układzie związanym z systemem 1992.
 
         '''
         lat = radians(lat)
