@@ -83,7 +83,7 @@ W pliku z danymi początkowymi X,Y,Z współrzędne powinny być odzielone "**,*
 >3664940.515,1409153.595,5009571.169  
 >3664940.513,1409153.584,5009571.171
 
-Przy wywoływaniu flag **--flh2xyz**, **--fl_do_2000**, **--fl_do_1992** w plik wejściowym współrzędne fi, lambda, h powinny być oddzielone **" "** (whitespace).
+Przy wywoływaniu flag **--flh2xyz**, **--fl_do_2000**, **--fl_do_1992** w pliku wejściowym współrzędne fi, lambda, h powinny być oddzielone **" "** (whitespace).
 >wspolrzednafi wspolrzednalambda wspolrzednah
 
 #### Przykład (**results_xyz2flh.txt**)
